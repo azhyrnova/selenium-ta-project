@@ -41,7 +41,6 @@ public class LoginPage extends AbstractPage{
         return this;
     }
 
-    @Override
     public String getErrorMessage() {
         return driver
                 .findElement(By.className("error-message-container"))

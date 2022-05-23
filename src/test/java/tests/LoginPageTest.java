@@ -28,7 +28,7 @@ public class LoginPageTest extends CommonConditions {
         String actualTitle = productsPage.getTextFromPageTitle();
         String expectedTitle = "Products";
 
-        Assert.assertEquals(expectedTitle, actualTitle);
+        Assert.assertTrue(expectedTitle.equalsIgnoreCase(actualTitle));
 
     }
 

@@ -30,7 +30,7 @@ public class TestListener implements ITestListener {
             FileUtils.copyFile(screenCapture, new File(".//target/screenshots/" + getCurrentTimeAsString() + ".png"));
         }
         catch (IOException exception) {
-            log.error("Failed to save scrrenshot:" + exception.getLocalizedMessage());
+            log.error("Failed to save screenshot:" + exception.getLocalizedMessage());
         }
     }
 
