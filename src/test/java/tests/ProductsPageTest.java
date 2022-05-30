@@ -1,15 +1,14 @@
 package tests;
 
-import helpers.CommonConditions;
 import helpers.UserCreator;
 import model.User;
 import org.testng.annotations.Test;
-import tests.pages.LoginPage;
-import tests.pages.ProductsPage;
+import pages.LoginPage;
+import pages.ProductsPage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProductsPageTest extends CommonConditions {
+public class ProductsPageTest extends BaseTest {
     @Test
     public void directOpeningThePageShouldThrowError() {
         ProductsPage productsPage = new ProductsPage(driver);
@@ -28,10 +27,9 @@ public class ProductsPageTest extends CommonConditions {
         loginPage.
                 openPage().
                 enterUsername(testUser.getUsername()).
-                enterPassword(testUser.getPassword()).clickLogin();
+                enterPassword(testUser.getPassword()).clickLogin().addToCartBackpack();
 
         ProductsPage productsPage = new ProductsPage(driver);
-        productsPage.addToCartBackpack();
 
         int expectedNumberOfItems = 1;
         int actualNumberOfItems = productsPage.getNumberOfItemsInShoppingCart();

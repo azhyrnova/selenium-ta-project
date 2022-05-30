@@ -1,18 +1,16 @@
 package tests;
 
-import helpers.CommonConditions;
 import helpers.UserCreator;
 import model.User;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-import tests.pages.LoginPage;
-import tests.pages.ProductsPage;
+import pages.LoginPage;
+import pages.ProductsPage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LoginPageTest extends CommonConditions {
+public class LoginPageTest extends BaseTest {
 
-    @Test
+    @Test(priority = 0, description = "Standard user should login")
     public void standardUserShouldLogin() {
         LoginPage loginPage = new LoginPage(driver);
 
@@ -28,11 +26,10 @@ public class LoginPageTest extends CommonConditions {
         String actualTitle = productsPage.getTextFromPageTitle();
         String expectedTitle = "Products";
 
-        Assert.assertTrue(expectedTitle.equalsIgnoreCase(actualTitle));
-
+        assertThat(expectedTitle.equalsIgnoreCase(actualTitle));
     }
 
-    @Test
+    @Test(priority = 1, description = "User should not login with wrong credentials")
     public void userShouldNotLoginWithWrongCredentials(){
         LoginPage loginPage = new LoginPage(driver);
 
@@ -42,7 +39,7 @@ public class LoginPageTest extends CommonConditions {
                 enterUsername(testUser.getUsername()).
                 enterPassword(testUser.getPassword()).clickLogin();
         String errorMessage = "Epic sadface: Username and password do not match any user in this service";
-        assertThat(errorMessage).isEqualTo(loginPage.getErrorMessage());
+        assertThat(errorMessage).isEqualTo(loginPage.getErrorMessage()+1);
     }
 
     @Test
@@ -57,6 +54,4 @@ public class LoginPageTest extends CommonConditions {
         String errorMessage = "Epic sadface: Sorry, this user has been locked out.";
         assertThat(errorMessage).isEqualTo(loginPage.getErrorMessage());
     }
-
-
 }

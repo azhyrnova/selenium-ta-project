@@ -4,7 +4,7 @@
     <test name="standardUserCanLogin"   >
         <classes>
             <class name="tests.LoginPageTest" />
-            <class name="tests.ProductsPageTest" />
+            <class name="tests.ProductsPageTest"/>
         </classes>
     </test>
 </suite>

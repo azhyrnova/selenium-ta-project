@@ -1,14 +1,15 @@
-package tests.pages;
+package pages;
 
-import org.openqa.selenium.By;
+import helpers.ConfigurationManager;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage extends AbstractPage{
+public class LoginPage extends AbstractPage {
 
-    protected final String PAGE_URL = "https://www.saucedemo.com";
+    protected final String PAGE_URL = ConfigurationManager.getProperty("base.url");
 
     @FindBy(id = "user-name")
     private WebElement inputLogin;
@@ -19,36 +20,42 @@ public class LoginPage extends AbstractPage{
     @FindBy(id = "login-button")
     private WebElement loginButton;
 
+    @FindBy(xpath = "//h3[@data-test='error']")
+    private WebElement errorBox;
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
 
+    @Step("Login page was opened")
     public LoginPage openPage() {
         driver.navigate().to(PAGE_URL);
         return this;
     }
 
+    @Step("Username was entered")
     public LoginPage enterUsername(final String username) {
         inputLogin.clear();
         inputLogin.sendKeys(username);
         return this;
     }
 
+    @Step("Password was entered")
     public LoginPage enterPassword(final String password) {
         inputPassword.clear();
         inputPassword.sendKeys(password);
         return this;
     }
 
+    @Step("Error message was retrieved")
     public String getErrorMessage() {
-        return driver
-                .findElement(By.className("error-message-container"))
-                .findElement(By.tagName("h3"))
-                .getText();
+        return errorBox.getText();
     }
 
-    public void clickLogin() {
+    @Step("Login was successful")
+    public ProductsPage clickLogin() {
+        ProductsPage productsPage = new ProductsPage(driver);
         loginButton.click();
+        return productsPage;
     }
 }

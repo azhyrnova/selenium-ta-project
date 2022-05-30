@@ -12,6 +12,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <org.apache.maven.plugins>2.22.2</org.apache.maven.plugins>
         <defaultSuite>debug</defaultSuite>
         <suite>${defaultSuite}</suite>
         <defaultEnv>dev</defaultEnv>
@@ -20,9 +21,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
         <selenium.version>3.141.59</selenium.version>
-        <webdrivermanager.version>5.0.3</webdrivermanager.version>
+        <webdrivermanager.version>5.1.1</webdrivermanager.version>
         <testng.version>7.5</testng.version>
-<!--        <lombok.version>1.18.10</lombok.version>-->
         <assertj-core.version>3.22.0</assertj-core.version>
         <log4j-core.version>2.17.2</log4j-core.version>
         <log4j-api.version>2.17.2</log4j-api.version>
@@ -31,6 +31,8 @@
         <allure-maven.version>2.11.2</allure-maven.version>
         <aspectj.version>1.9.8</aspectj.version>
         <suiteXml>src/test/resources/smoke.xml</suiteXml>
+        <allure.version>2.17.1</allure.version>
+        <allure.results.directory>${basedir}/src/target/allure-results</allure.results.directory>
     </properties>
     <dependencies>
         <dependency>
@@ -48,12 +50,6 @@
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>-->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -85,6 +81,18 @@
             <version>5.1.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-plugin-api</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
+
+
     </dependencies>
     <build>
         <plugins>
@@ -95,15 +103,15 @@
                 <configuration>
                     <source>17</source>
                     <target>17</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${basedir}/src/test/java/packages/suites/${suite}.xml</suiteXmlFile>
+                        <suiteXmlFile>${basedir}/src/test/java/tests/suites/${suite}.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
