@@ -1,6 +1,7 @@
 package pages;
 
 import helpers.ConfigurationManager;
+import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -42,6 +43,7 @@ public class ProductsPage extends AbstractPage {
         return productsPageTitle.getText();
     }
 
+    @Step("Backpack was added to the cart")
     public void addToCartBackpack(){
         addToCartBackpack.click();
         logger.info(getDescription() + " was added to the cart");

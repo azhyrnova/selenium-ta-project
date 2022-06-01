@@ -19,7 +19,6 @@ public class TestListener implements ITestListener {
     public void onTestFailure(ITestResult iTestResult) {
         Object testClass = iTestResult.getInstance();
         WebDriver driver = ((BaseTest)testClass).getDriver();
-        //saveScreenshot();
 
         if(driver instanceof  WebDriver) {
             System.out.println("Screenshot captured for test case: " + getTestMethodName(iTestResult));
@@ -33,17 +32,6 @@ public class TestListener implements ITestListener {
         return iTestResult.getMethod().getMethodName();
     }
 
-    /*private void saveScreenshot(){
-        File screenCapture = ((TakesScreenshot) DriverSingleton
-                .getDriver())
-                .getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(screenCapture, new File(".//target/screenshots/" + getCurrentTimeAsString() + ".png"));
-        }
-        catch (IOException exception) {
-            log.error("Failed to save screenshot:" + exception.getLocalizedMessage());
-        }
-    }*/
     @Attachment(value = "Page screenshot", type = "image/png")
     public byte[] saveScreenshotPNG(WebDriver driver) {
         return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
