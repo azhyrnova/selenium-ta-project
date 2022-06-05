@@ -8,7 +8,6 @@
     <artifactId>selenium-ta-project</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -30,9 +29,9 @@
         <allure-testng.version>2.17.3</allure-testng.version>
         <allure-maven.version>2.11.2</allure-maven.version>
         <aspectj.version>1.9.8</aspectj.version>
-        <suiteXml>src/test/resources/smoke.xml</suiteXml>
+        <suiteXmlFile>src/test/java/tests/suites/${defaultSuite}.xml</suiteXmlFile>
         <allure.version>2.17.1</allure.version>
-        <allure.results.directory>${basedir}/src/target/allure-results</allure.results.directory>
+        <allure.results.directory>${basedir}/src/test/resources/target/allure-results</allure.results.directory>
     </properties>
     <dependencies>
         <dependency>
@@ -111,10 +110,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${basedir}/src/test/java/tests/suites/${suite}.xml</suiteXmlFile>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                       --enable-preview
                     </argLine>
                 </configuration>
                 <dependencies>
