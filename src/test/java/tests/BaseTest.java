@@ -1,6 +1,6 @@
 package tests;
 
-import driver.DriverSingleton;
+import driver.DriverManager;
 import helpers.ConfigurationManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
@@ -17,7 +17,7 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp()  {
-        driver = DriverSingleton.getDriver();
+        driver = DriverManager.getDriver();
         driver.manage().window().maximize();
     }
 
@@ -28,7 +28,7 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void stopBrowser(){
-        DriverSingleton.closeDriver();
+        DriverManager.closeDriver();
     }
 
     public WebDriver getDriver(){

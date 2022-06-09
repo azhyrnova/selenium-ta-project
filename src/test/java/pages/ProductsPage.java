@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ProductsPage extends AbstractPage {
 
-    protected final String PAGE_URL = ConfigurationManager.getProperty("base.url") + ConfigurationManager.getProperty("product.page.url");
+    private final String PAGE_URL = ConfigurationManager.getProperty("base.url") + ConfigurationManager.getProperty("product.page.url");
     private final Logger logger = LogManager.getRootLogger();
 
     @FindBy(xpath = "//span[contains(text(), 'Products')]")

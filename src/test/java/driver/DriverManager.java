@@ -2,10 +2,10 @@ package driver;
 
 import org.openqa.selenium.WebDriver;
 
-public class DriverSingleton {
+public class DriverManager {
     private static WebDriver driver;
 
-    private DriverSingleton(){}
+    private DriverManager(){}
 
     public static WebDriver getDriver(){
         if (null == driver) {

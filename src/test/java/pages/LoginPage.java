@@ -1,6 +1,5 @@
 package pages;
 
-import helpers.ConfigurationManager;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,8 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends AbstractPage {
-
-    protected final String PAGE_URL = ConfigurationManager.getProperty("base.url");
 
     @FindBy(id = "user-name")
     private WebElement inputLogin;
@@ -52,7 +49,7 @@ public class LoginPage extends AbstractPage {
         return errorBox.getText();
     }
 
-    @Step("Login was successful")
+    @Step("Login button was clicked")
     public ProductsPage clickLogin() {
         ProductsPage productsPage = new ProductsPage(driver);
         loginButton.click();
