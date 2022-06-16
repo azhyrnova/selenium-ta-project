@@ -1,11 +1,16 @@
 # selenium-ta-project
 
-To run tests execute following command:
+To run tests execute the following command:
 
 ```
 mvn -Dbrowser=chrome -Denv=qa -DdefaultSuite=smoke test
 
 ```
+To generate Allure report after test run execute the following command:
+```
+mvn allure:serve
+```
+
 browser parameter can be changed, available options at this moment:
 - chrome
 - firefox

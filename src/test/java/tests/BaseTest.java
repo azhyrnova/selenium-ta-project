@@ -10,15 +10,18 @@ import org.testng.annotations.Listeners;
 import util.TestListener;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 @Listeners({TestListener.class})
 public class BaseTest {
     protected static WebDriver driver;
+    protected final int WAIT_TIMEOUT_SECONDS =  Integer.parseInt(ConfigurationManager.getProperty("webdriver.timeout.seconds"));
 
     @BeforeMethod
     public void setUp()  {
         driver = DriverManager.getDriver();
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(WAIT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
     }
 
     @BeforeSuite

@@ -16,6 +16,10 @@ import java.time.format.DateTimeFormatter;
 public class TestListener implements ITestListener {
     private Logger log = LogManager.getRootLogger();
 
+    private static String getTestMethodName(ITestResult iTestResult) {
+        return iTestResult.getMethod().getConstructorOrMethod().getName();
+    }
+
     public void onTestFailure(ITestResult iTestResult) {
         Object testClass = iTestResult.getInstance();
         WebDriver driver = ((BaseTest)testClass).getDriver();
@@ -45,5 +49,9 @@ public class TestListener implements ITestListener {
     private String getCurrentTimeAsString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd_HH-mm-ss");
         return ZonedDateTime.now().format(formatter);
+    }
+    @Attachment(value = "{0}", type = "html")
+    public static String attachHtml(String html){
+        return html;
     }
 }

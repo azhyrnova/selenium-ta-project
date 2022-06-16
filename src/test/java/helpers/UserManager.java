@@ -2,7 +2,7 @@ package helpers;
 
 import model.User;
 
-public class UserCreator {
+public class UserManager {
 
     public static final String TESTDATA_USER_NAME = ConfigurationManager.getProperty("test.data.user.name");
     public static final String TESTDATA_USER_PASSWORD = ConfigurationManager.getProperty("test.data.user.password");

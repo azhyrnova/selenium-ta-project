@@ -1,20 +1,26 @@
 package tests;
 
-import helpers.UserCreator;
+import helpers.UserManager;
 import model.User;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.ProductsPage;
+import util.TestListener;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Listeners({TestListener.class})
 public class LoginPageTest extends BaseTest {
+
+    LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
 
     @Test(priority = 0, description = "Standard user should login")
     public void standardUserShouldLogin() {
-        LoginPage loginPage = new LoginPage(driver);
+        //LoginPage loginPage = new LoginPage(driver);
 
-        User testUser = UserCreator.withStandardCredentials();
+        User testUser = UserManager.withStandardCredentials();
 
         loginPage.
                 openPage().
@@ -31,9 +37,9 @@ public class LoginPageTest extends BaseTest {
 
     @Test(priority = 1, description = "User should not login with wrong credentials")
     public void userShouldNotLoginWithWrongCredentials(){
-        LoginPage loginPage = new LoginPage(driver);
+        //LoginPage loginPage = new LoginPage(driver);
 
-        User testUser = UserCreator.withWrongCredentials();
+        User testUser = UserManager.withWrongCredentials();
         loginPage.
                 openPage().
                 enterUsername(testUser.getUsername()).
@@ -42,11 +48,25 @@ public class LoginPageTest extends BaseTest {
         assertThat(errorMessage).isEqualTo(loginPage.getErrorMessage());
     }
 
+    @Test(description = "This test should fail")
+    public void testShouldFail(){
+        //Test designed specifically to show a failure
+        //LoginPage loginPage = new LoginPage(driver);
+
+        User testUser = UserManager.withWrongCredentials();
+        loginPage.
+                openPage().
+                enterUsername(testUser.getUsername()).
+                enterPassword(testUser.getPassword()).clickLogin();
+
+        assertThat(true).isEqualTo(false);
+    }
+
     @Test
     public void lockedOutUserShouldNotLogin(){
-        LoginPage loginPage = new LoginPage(driver);
+        //LoginPage loginPage = new LoginPage(driver);
 
-        User testUser = UserCreator.lockedOut();
+        User testUser = UserManager.lockedOut();
         loginPage.
                 openPage().
                 enterUsername(testUser.getUsername()).
