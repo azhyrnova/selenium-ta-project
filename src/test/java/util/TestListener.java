@@ -31,11 +31,6 @@ public class TestListener implements ITestListener {
 
         saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");
     }
-
-    private String getTestMethodName(ITestResult iTestResult) {
-        return iTestResult.getMethod().getMethodName();
-    }
-
     @Attachment(value = "Page screenshot", type = "image/png")
     public byte[] saveScreenshotPNG(WebDriver driver) {
         return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
