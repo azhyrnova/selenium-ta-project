@@ -3,19 +3,27 @@ package tests;
 import helpers.UserManager;
 import model.User;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.ProductsPage;
+import util.InvokedMethodTestListener;
 import util.TestListener;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Listeners({TestListener.class})
+@Listeners({TestListener.class, InvokedMethodTestListener.class})
 public class ProductsPageTest extends BaseTest {
 
     private LoginPage loginPage;
     private ProductsPage productsPage;
+
+    @BeforeTest
+    void initPages() {
+        loginPage = new LoginPage(driver);
+        productsPage = new ProductsPage(driver);
+    }
     @Test
     public void directOpeningThePageShouldThrowError() {
         initPages();
@@ -40,10 +48,5 @@ public class ProductsPageTest extends BaseTest {
         int expectedNumberOfItems = 1;
         int actualNumberOfItems = productsPage.getNumberOfItemsInShoppingCart();
         assertThat(actualNumberOfItems).isEqualTo(expectedNumberOfItems);
-    }
-
-    void initPages() {
-        loginPage = new LoginPage(driver);
-        productsPage = new ProductsPage(driver);
     }
 }
