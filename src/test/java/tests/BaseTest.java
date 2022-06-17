@@ -1,20 +1,16 @@
 package tests;
-
+import org.testng.annotations.*;
+import util.TestListener;
 import driver.DriverManager;
 import helpers.ConfigurationManager;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Listeners;
-import util.TestListener;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 @Listeners({TestListener.class})
-public class BaseTest {
-    protected static WebDriver driver;
+public abstract class BaseTest {
+    protected WebDriver driver = DriverManager.getDriver();
     protected final int WAIT_TIMEOUT_SECONDS =  Integer.parseInt(ConfigurationManager.getProperty("webdriver.timeout.seconds"));
 
     @BeforeMethod
@@ -37,4 +33,6 @@ public class BaseTest {
     public WebDriver getDriver(){
         return driver;
     }
+
+    abstract void initPages();
 }

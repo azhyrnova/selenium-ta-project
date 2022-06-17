@@ -124,6 +124,11 @@
                             <name>allure.results.directory</name>
                             <value>${project.build.directory}/allure-results</value>
                         </property>
+                        <property>
+                            <name>listener</name>
+                            <value>src.test.java.util.TestListener</value>
+                        </property>
+
                     </systemProperties>
 
                 </configuration>

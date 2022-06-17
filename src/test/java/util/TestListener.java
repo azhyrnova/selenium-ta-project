@@ -1,5 +1,6 @@
 package util;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,15 +11,17 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import tests.BaseTest;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TestListener implements ITestListener {
+public class TestListener implements ITestListener  {
     private Logger log = LogManager.getRootLogger();
-
-    private static String getTestMethodName(ITestResult iTestResult) {
-        return iTestResult.getMethod().getConstructorOrMethod().getName();
-    }
 
     public void onTestFailure(ITestResult iTestResult) {
         Object testClass = iTestResult.getInstance();
@@ -26,19 +29,15 @@ public class TestListener implements ITestListener {
 
         if(driver instanceof  WebDriver) {
             System.out.println("Screenshot captured for test case: " + getTestMethodName(iTestResult));
-            saveScreenshotPNG(driver);
+            Allure.addAttachment("screenshot", new ByteArrayInputStream(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES)));
         }
 
-        saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");
+        String text = saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");
+        Allure.addAttachment("screenshot", text);
     }
 
     private String getTestMethodName(ITestResult iTestResult) {
         return iTestResult.getMethod().getMethodName();
-    }
-
-    @Attachment(value = "Page screenshot", type = "image/png")
-    public byte[] saveScreenshotPNG(WebDriver driver) {
-        return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
     }
 
     @Attachment(value = "{0}", type = "text/plain")

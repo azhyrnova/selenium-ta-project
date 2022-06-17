@@ -14,13 +14,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Listeners({TestListener.class})
 public class ProductsPageTest extends BaseTest {
 
-    LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
-    ProductsPage productsPage = PageFactory.initElements(driver, ProductsPage.class);
+    private LoginPage loginPage;
+    private ProductsPage productsPage;
     @Test
     public void directOpeningThePageShouldThrowError() {
-        //ProductsPage productsPage = new ProductsPage(driver);
+        initPages();
         productsPage.openPage();
-        //LoginPage loginPage = new LoginPage(driver);
 
         String errorMessage = "Epic sadface: You can only access '/inventory.html' when you are logged in.";
 
@@ -29,7 +28,7 @@ public class ProductsPageTest extends BaseTest {
 
     @Test
     public void userCanAddItemToShoppingCart(){
-        //LoginPage loginPage = new LoginPage(driver);
+        initPages();
         User testUser = UserManager.withStandardCredentials();
         loginPage.
                 openPage().
@@ -41,5 +40,10 @@ public class ProductsPageTest extends BaseTest {
         int expectedNumberOfItems = 1;
         int actualNumberOfItems = productsPage.getNumberOfItemsInShoppingCart();
         assertThat(actualNumberOfItems).isEqualTo(expectedNumberOfItems);
+    }
+
+    void initPages() {
+        loginPage = new LoginPage(driver);
+        productsPage = new ProductsPage(driver);
     }
 }

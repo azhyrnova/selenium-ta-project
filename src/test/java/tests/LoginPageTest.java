@@ -14,11 +14,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Listeners({TestListener.class})
 public class LoginPageTest extends BaseTest {
 
-    LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
+    private LoginPage loginPage;
+    private ProductsPage productsPage;
+
 
     @Test(priority = 0, description = "Standard user should login")
     public void standardUserShouldLogin() {
-        //LoginPage loginPage = new LoginPage(driver);
+        initPages();
 
         User testUser = UserManager.withStandardCredentials();
 
@@ -26,8 +28,6 @@ public class LoginPageTest extends BaseTest {
                 openPage().
                 enterUsername(testUser.getUsername()).
                 enterPassword(testUser.getPassword()).clickLogin();
-
-        ProductsPage productsPage = new ProductsPage(driver);
 
         String actualTitle = productsPage.getTextFromPageTitle();
         String expectedTitle = "Products";
@@ -37,7 +37,7 @@ public class LoginPageTest extends BaseTest {
 
     @Test(priority = 1, description = "User should not login with wrong credentials")
     public void userShouldNotLoginWithWrongCredentials(){
-        //LoginPage loginPage = new LoginPage(driver);
+        initPages();
 
         User testUser = UserManager.withWrongCredentials();
         loginPage.
@@ -51,7 +51,7 @@ public class LoginPageTest extends BaseTest {
     @Test(description = "This test should fail")
     public void testShouldFail(){
         //Test designed specifically to show a failure
-        //LoginPage loginPage = new LoginPage(driver);
+        initPages();
 
         User testUser = UserManager.withWrongCredentials();
         loginPage.
@@ -64,7 +64,7 @@ public class LoginPageTest extends BaseTest {
 
     @Test
     public void lockedOutUserShouldNotLogin(){
-        //LoginPage loginPage = new LoginPage(driver);
+        initPages();
 
         User testUser = UserManager.lockedOut();
         loginPage.
@@ -74,4 +74,11 @@ public class LoginPageTest extends BaseTest {
         String errorMessage = "Epic sadface: Sorry, this user has been locked out.";
         assertThat(errorMessage).isEqualTo(loginPage.getErrorMessage());
     }
+
+    void initPages() {
+        loginPage = new LoginPage(driver);
+        productsPage = new ProductsPage(driver);
+    }
+
+
 }

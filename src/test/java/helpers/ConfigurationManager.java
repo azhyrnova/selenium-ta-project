@@ -28,6 +28,14 @@ public class ConfigurationManager {
 
     public static String getProperty(String propertyName) {
         LOG.debug("Read property " + propertyName + ": " + properties.getProperty(propertyName));
+
+        if(properties.isEmpty()) {
+            try {
+                loadProperties();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return properties.getProperty(propertyName);
     }
 }
