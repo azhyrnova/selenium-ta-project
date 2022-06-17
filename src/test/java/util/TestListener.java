@@ -36,13 +36,13 @@ public class TestListener implements ITestListener  {
         Allure.addAttachment("screenshot", text);
     }
 
-    private String getTestMethodName(ITestResult iTestResult) {
-        return iTestResult.getMethod().getMethodName();
-    }
-
     @Attachment(value = "{0}", type = "text/plain")
     public static String saveTextLog(String message) {
         return message;
+    }
+
+    private String getTestMethodName(ITestResult iTestResult) {
+        return iTestResult.getMethod().getMethodName();
     }
 
     private String getCurrentTimeAsString() {
