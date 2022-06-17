@@ -7,11 +7,13 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.ProductsPage;
+import util.InvokedMethodTestListener;
 import util.TestListener;
 
+import static com.codeborne.selenide.Selenide.page;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Listeners({TestListener.class})
+@Listeners({TestListener.class, InvokedMethodTestListener.class})
 public class ProductsPageTest extends BaseTest {
 
     private LoginPage loginPage;
@@ -35,7 +37,6 @@ public class ProductsPageTest extends BaseTest {
                 enterUsername(testUser.getUsername()).
                 enterPassword(testUser.getPassword()).clickLogin().addToCartBackpack();
 
-        ProductsPage productsPage = new ProductsPage(driver);
 
         int expectedNumberOfItems = 1;
         int actualNumberOfItems = productsPage.getNumberOfItemsInShoppingCart();
@@ -43,7 +44,7 @@ public class ProductsPageTest extends BaseTest {
     }
 
     void initPages() {
-        loginPage = new LoginPage(driver);
-        productsPage = new ProductsPage(driver);
+        loginPage = page(LoginPage.class);
+        productsPage = page(ProductsPage.class);
     }
 }

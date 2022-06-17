@@ -7,11 +7,13 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.ProductsPage;
+import util.InvokedMethodTestListener;
 import util.TestListener;
 
+import static com.codeborne.selenide.Selenide.page;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Listeners({TestListener.class})
+@Listeners({TestListener.class, InvokedMethodTestListener.class})
 public class LoginPageTest extends BaseTest {
 
     private LoginPage loginPage;
@@ -76,8 +78,8 @@ public class LoginPageTest extends BaseTest {
     }
 
     void initPages() {
-        loginPage = new LoginPage(driver);
-        productsPage = new ProductsPage(driver);
+        loginPage = page(LoginPage.class);
+        productsPage = page(ProductsPage.class);
     }
 
 

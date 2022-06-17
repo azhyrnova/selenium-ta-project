@@ -19,7 +19,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <selenium.version>3.141.59</selenium.version>
+<!--        <selenium.version>3.141.59</selenium.version>-->
         <webdrivermanager.version>5.1.1</webdrivermanager.version>
         <testng.version>7.5</testng.version>
         <assertj-core.version>3.22.0</assertj-core.version>
@@ -37,11 +37,11 @@
         <allure.results.directory>${basedir}/target/allure-results</allure.results.directory>
     </properties>
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
@@ -93,6 +93,12 @@
             <artifactId>allure-plugin-api</artifactId>
             <version>${allure.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>6.6.3</version>
+            <scope>test</scope>
+        </dependency>
 
 
     </dependencies>
@@ -112,6 +118,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <suiteXmlFiles>
                         <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
@@ -126,7 +133,7 @@
                         </property>
                         <property>
                             <name>listener</name>
-                            <value>src.test.java.util.TestListener</value>
+                            <value>src.test.java.util.TestListener, scr.test.java.util.InvokedMethodTestListener</value>
                         </property>
 
                     </systemProperties>

@@ -1,32 +1,26 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
+import static com.codeborne.selenide.Selenide.*;
 
 public class LoginPage extends AbstractPage {
 
-    @FindBy(id = "user-name")
-    private WebElement inputLogin;
+    private SelenideElement inputLogin =$("#user-name");
+    private SelenideElement inputPassword =$("#password");
 
-    @FindBy(id = "password")
-    private WebElement inputPassword;
+    private SelenideElement loginButton =$("#login-button");
 
-    @FindBy(id = "login-button")
-    private WebElement loginButton;
+    private SelenideElement errorBox =$x("//h3[@data-test='error']");
 
-    @FindBy(xpath = "//h3[@data-test='error']")
-    private WebElement errorBox;
-    public LoginPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(this.driver, this);
+    public LoginPage() {
+        //return page(LoginPage.class);
+        //PageFactory.initElements(this.driver, this);
     }
 
     @Step("Login page was opened")
     public LoginPage openPage() {
-        driver.navigate().to(PAGE_URL);
         return this;
     }
 
@@ -51,8 +45,7 @@ public class LoginPage extends AbstractPage {
 
     @Step("Login button was clicked")
     public ProductsPage clickLogin() {
-        ProductsPage productsPage = new ProductsPage(driver);
         loginButton.click();
-        return productsPage;
+        return page(ProductsPage.class);
     }
 }

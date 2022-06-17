@@ -1,41 +1,35 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
 import helpers.ConfigurationManager;
 import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
+import static com.codeborne.selenide.Selenide.*;
 
 public class ProductsPage extends AbstractPage {
 
     private final String PAGE_URL = ConfigurationManager.getProperty("base.url") + "/inventory.html";
     private final Logger logger = LogManager.getRootLogger();
 
-    @FindBy(xpath = "//span[contains(text(), 'Products')]")
-    private WebElement productsPageTitle;
+    private SelenideElement productsPageTitle =$x("//span[contains(text(), 'Products')]");
 
-    @FindBy(css = ".error-button")
-    private WebElement errorButton;
+    private SelenideElement errorButton =$(".error-button");
+    private SelenideElement addToCartBackpack =$("#add-to-cart-sauce-labs-backpack");
 
-    @FindBy(id = "add-to-cart-sauce-labs-backpack")
-    private WebElement addToCartBackpack;
+    private SelenideElement shoppingCart =$x("/div[@id = 'shopping_cart_container']/a/span");
 
-    @FindBy(xpath = "//div[@id = 'shopping_cart_container']/a/span")
-    private WebElement shoppingCart;
+    private SelenideElement descriptionOfBackpack =$("#item_4_title_link > div");
 
-    @FindBy(css = "#item_4_title_link > div")
-    private  WebElement descriptionOfBackpack;
-
-    public ProductsPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(this.driver, this);
+    public ProductsPage() {
+        //super();
+        //return page(ProductsPage.class);
+        //PageFactory.initElements(this.driver, this);
     }
 
     public ProductsPage openPage() {
-        driver.navigate().to(PAGE_URL);
+        open(PAGE_URL);
         return this;
     }
 

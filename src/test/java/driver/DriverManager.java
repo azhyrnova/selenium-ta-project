@@ -1,8 +1,9 @@
 package driver;
 
 import org.openqa.selenium.WebDriver;
+//commented completely because need to receive a feedback
 
-public class DriverManager {
+/*public class DriverManager {
     private static WebDriver driver;
 
     private DriverManager(){}
@@ -21,4 +22,4 @@ public class DriverManager {
         driver = null;
     }
 
-}
+}*/

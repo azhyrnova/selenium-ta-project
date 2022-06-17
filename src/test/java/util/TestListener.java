@@ -24,16 +24,7 @@ public class TestListener implements ITestListener  {
     private Logger log = LogManager.getRootLogger();
 
     public void onTestFailure(ITestResult iTestResult) {
-        Object testClass = iTestResult.getInstance();
-        WebDriver driver = ((BaseTest)testClass).getDriver();
 
-        if(driver instanceof  WebDriver) {
-            System.out.println("Screenshot captured for test case: " + getTestMethodName(iTestResult));
-            Allure.addAttachment("screenshot", new ByteArrayInputStream(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES)));
-        }
-
-        String text = saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");
-        Allure.addAttachment("screenshot", text);
     }
 
     @Attachment(value = "{0}", type = "text/plain")
