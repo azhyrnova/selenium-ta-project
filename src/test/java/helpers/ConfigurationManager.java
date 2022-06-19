@@ -1,0 +1,41 @@
+package helpers;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+public class ConfigurationManager {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigurationManager.class);
+    private static final Properties properties = new Properties();
+
+    private static final String RESOURCES_PATH =
+            System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+                    + File.separator + "resources";
+    private static final String PROPERTY_FILE_PATH_MASK = RESOURCES_PATH + File.separator + "envs" + File.separator
+            + "%s.properties";
+
+    public static void loadProperties() throws IOException {
+        String ENV_PROPERTY = "env";
+        String environment = System.getProperty(ENV_PROPERTY);
+        File file = new File(String.format(PROPERTY_FILE_PATH_MASK, environment));
+        properties.load(new FileInputStream(file));
+    }
+
+    public static String getProperty(String propertyName) {
+        LOG.debug("Read property " + propertyName + ": " + properties.getProperty(propertyName));
+
+        if(properties.isEmpty()) {
+            try {
+                loadProperties();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return properties.getProperty(propertyName);
+    }
+}
