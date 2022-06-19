@@ -19,6 +19,7 @@ public class LoginPage extends AbstractPage {
 
     @FindBy(xpath = "//h3[@data-test='error']")
     private WebElement errorBox;
+
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);

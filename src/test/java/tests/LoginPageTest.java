@@ -19,16 +19,13 @@ public class LoginPageTest extends BaseTest {
     private LoginPage loginPage;
     private ProductsPage productsPage;
 
-    @BeforeTest
-    void initPages() {
+    protected void initPages() {
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
     }
 
     @Test(priority = 0, description = "Standard user should login")
     public void standardUserShouldLogin() {
-        initPages();
-
         User testUser = UserManager.withStandardCredentials();
 
         loginPage.
@@ -44,8 +41,6 @@ public class LoginPageTest extends BaseTest {
 
     @Test(priority = 1, description = "User should not login with wrong credentials")
     public void userShouldNotLoginWithWrongCredentials(){
-        initPages();
-
         User testUser = UserManager.withWrongCredentials();
         loginPage.
                 openPage().
@@ -57,9 +52,6 @@ public class LoginPageTest extends BaseTest {
 
     @Test(description = "This test should fail")
     public void testShouldFail(){
-        //Test designed specifically to show a failure
-        initPages();
-
         User testUser = UserManager.withWrongCredentials();
         loginPage.
                 openPage().
@@ -71,8 +63,6 @@ public class LoginPageTest extends BaseTest {
 
     @Test
     public void lockedOutUserShouldNotLogin(){
-        initPages();
-
         User testUser = UserManager.lockedOut();
         loginPage.
                 openPage().

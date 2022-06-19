@@ -19,14 +19,12 @@ public class ProductsPageTest extends BaseTest {
     private LoginPage loginPage;
     private ProductsPage productsPage;
 
-    @BeforeTest
-    void initPages() {
+    protected void initPages() {
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
     }
     @Test
     public void directOpeningThePageShouldThrowError() {
-        initPages();
         productsPage.openPage();
 
         String errorMessage = "Epic sadface: You can only access '/inventory.html' when you are logged in.";
@@ -36,7 +34,6 @@ public class ProductsPageTest extends BaseTest {
 
     @Test
     public void userCanAddItemToShoppingCart(){
-        initPages();
         User testUser = UserManager.withStandardCredentials();
         loginPage.
                 openPage().

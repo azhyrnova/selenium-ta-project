@@ -25,13 +25,14 @@ public abstract class BaseTest {
             }
         }
     }
-    abstract void initPages();
+    abstract protected void initPages();
 
     @BeforeMethod
     public void setUp()  {
         driver = DriverManager.getDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(WAIT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        initPages();
     }
 
     @BeforeSuite
